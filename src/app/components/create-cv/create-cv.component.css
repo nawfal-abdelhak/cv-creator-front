@@ -1,0 +1,40 @@
+/* -webkit-print-color-adjust: exact; */
+
+.list-title{
+    font-size: 22px;
+}
+
+.list-wrapper{
+    border-bottom: 1px solid #ccc; 
+    padding-bottom: 20px;
+     margin-top: 20px;
+     cursor: pointer;
+}
+
+input{
+    background-color: #F4F4F5;
+    border: none;
+    height: 50px;
+
+}
+
+.experience{
+    margin-top: 10px;
+    border: 1px solid #e2c5c5; 
+    border-radius: 10px;
+}
+
+.cv_secondary_title{
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.custom-row-height {
+    height: calc(90vh - 100px);
+    background-color: white;
+    border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;
+  }
+
+.right_section{
+    -webkit-print-color-adjust: exact;height: 130px; width: 100%;border-top-left-radius: 10px;border-top-right-radius: 10px
+}
