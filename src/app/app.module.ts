@@ -10,6 +10,10 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProgressBarModule } from 'primeng/progressbar';
+// For dynamic progressbar demo
+import { ToastModule } from 'primeng/toast';
+import { SliderModule } from 'primeng/slider';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +28,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ChipModule,
     InputTextareaModule,
     ColorPickerModule,
+    ProgressBarModule,
+    SliderModule,
+    SliderModule,
     BrowserAnimationsModule
   
   ],
