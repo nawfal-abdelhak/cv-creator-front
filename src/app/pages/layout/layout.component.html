@@ -1,0 +1,20 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-2" id="left-column">
+        <img style="width: 300px;margin-bottom: -40px;" src="assets/logo.png">
+        <li (click)="goTo(item)"  class="list-group-item item" [ngClass]="{ 'active': isActive(item.name) }" *ngFor="let item of items">
+            {{  item.name=='statistique' && usersrvice.user.client.role[0]=='CLIENT' ?'': item.name}}
+          </li>
+          <div *ngIf="!usersrvice.user" routerLink="signin" class="text-center mt-auto" style="position: absolute;bottom: 0;color: white;cursor: pointer;">
+            <p>Connexion</p>
+          </div>
+
+          <div (click)="logout()" *ngIf="usersrvice.user" routerLink="signin" class="text-center mt-auto" style="position: absolute;bottom: 0;color: white;cursor: pointer;">
+            <p>deconnexion</p>
+          </div>
+      </div>
+      <div class="col-10 offset-2">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>

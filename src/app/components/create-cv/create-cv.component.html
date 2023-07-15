@@ -1,73 +1,107 @@
-<div  class="container-fluid">
+<nav class="navbar navbar-custom">
+  <span routerLink="/" class="navbar-text"
+    style="cursor: pointer;border-radius: 20px;padding: 10px;padding-right: 30px ;padding-left: 30px ;border: 1px solid white;margin-left: 20px;"><svg
+      xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left"
+      viewBox="0 0 16 16">
+      <path fill-rule="evenodd"
+        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+    </svg>Retour au Cvs</span>
+  <a class="navbar-brand">{{cv.title?cv.title:'CV NAME'}}</a>
+  <span class="navbar-text"> <button class="button" (click)="showDialog()">download cv</button> </span>
+</nav>
+
+<div class="container-fluid">
   <div class="row">
-    <div class="col-md-6 left-column  px-0" style="height: 94vh; overflow-y:scroll;">
+    <div class="col-md-6 left-column  px-0" style="height: 91vh; overflow-y:scroll;">
       <!-- content for left column goes here -->
       <div class="d-flex justify-content-center offset-1  col-10">
         <div class="w-100">
           <div class="list-wrapper">
-            <i (click)="hide_info_pers()"
-              [class]="show_pers_info ? 'pi pi-arrow-circle-up': 'pi pi-arrow-circle-down'"
+            <i (click)="hide_info_pers()" [class]="show_pers_info ? 'pi pi-arrow-circle-up': 'pi pi-arrow-circle-down'"
               style="font-size: 30px;float: right; margin-left: 10px;color: #757575; "></i>
             <!-- replace this with the icon you want to use -->
             <span style="font-weight: bold; margin-left: 10px;" class="list-title">Informations personnelles</span>
             <!-- replace this with your text -->
             <div class="pers_info" *ngIf="show_pers_info">
               <div class="d-flex">
+              <label for="file-input">
+              <div class="square-div">
+               
+                  <input id="file-input" type="file" (change)="handleFileInput($event)" accept="image/*">
+                  <span *ngIf="!cv.pers_info.image" class="icon1"> 
+                    <i class="pi pi-cloud-upload "></i>
+                
+                    
+                  </span>
+                
+                <img class="image" [src]="cv.pers_info.image"  *ngIf="cv.pers_info.image">
+              </div>
+            </label>
+            <div class="input-group mb-3 mt-3 mx-2 w-50">
+              <input type="text" class="form-control" [(ngModel)]="cv.title"
+                placeholder="titre">
+            </div>
+          </div>
+              <div class="d-flex">
                 <div class="input-group mb-3 mt-3 mx-2 w-50">
-                  <input type="text" class="form-control" [(ngModel)]="cvSections[currentIndex].pers_info.name" placeholder="prenom">
+                  <input type="text" class="form-control" [(ngModel)]="cv.pers_info.username"
+                    placeholder="prenom">
                 </div>
                 <div class="input-group mb-3 mt-3 mx-2 w-50">
-                  <input type="text" class="form-control" [(ngModel)]="cvSections[currentIndex].pers_info.last_name"  placeholder="Nom de famille">
+                  <input type="text" class="form-control" [(ngModel)]="cv.pers_info.last_name"
+                    placeholder="Nom de famille">
                 </div>
               </div>
               <div class="d-flex">
                 <div class="input-group mb-3 mt-3 mx-2 w-100">
-                  <input type="text" class="form-control" [(ngModel)]="cvSections[currentIndex].pers_info.mail"  placeholder="Adresse e-mail">
-                </div>
-              </div>
-
-              <div class="d-flex">
-                <div class="input-group mb-3 mt-3 mx-2 w-100">
-                  <input type="text" class="form-control" [(ngModel)]="cvSections[currentIndex].pers_info.profile_title"  placeholder="Titre du profil">
+                  <input type="text" class="form-control" [(ngModel)]="cv.pers_info.mail"
+                    placeholder="Adresse e-mail">
                 </div>
               </div>
 
 
+
               <div class="d-flex">
                 <div class="input-group mb-3 mt-3 mx-2 w-100">
-                  <input type="text" class="form-control" [(ngModel)]="cvSections[currentIndex].pers_info.address"  placeholder="Adresse">
+                  <input type="text" class="form-control" [(ngModel)]="cv.pers_info.address"
+                    placeholder="Adresse">
                 </div>
               </div>
 
               <div class="d-flex">
                 <div class="input-group mb-3 mt-3 mx-2 w-50">
-                  <input type="text" class="form-control" [(ngModel)]="cvSections[currentIndex].pers_info.phone_number"  placeholder="Numéro de téléphone">
+                  <input type="text" class="form-control" [(ngModel)]="cv.pers_info.phone_number"
+                    placeholder="Numéro de téléphone">
                 </div>
-                <div class="input-group mb-3 mt-3 mx-2 w-50">
-                  <input type="text" class="form-control" [(ngModel)]="cvSections[currentIndex].pers_info.city"  placeholder="Ville">
-                </div>
+
 
               </div>
               <div class="d-flex">
                 <div *ngIf="birth_place" class="input-group mb-3 mt-3 mx-2 w-50">
-                  <input type="text" class="form-control" [(ngModel)]="cvSections[currentIndex].pers_info.birth_place"  placeholder="Lieu de naissance">
-                  <i (click)="birth_place=!birth_place" class="pi pi-times"
-                    style="font-size: 20px; margin-left: 10px;color: #757575;margin-top: 15px;"></i>
+                  <input type="text" class="form-control" [(ngModel)]="cv.pers_info.birth_place"
+                    placeholder="Lieu de naissance">
+                  <i (click)="birth_place=!birth_place"
+                    class="pi pi-times" style="font-size: 20px; margin-left: 10px;color: #757575;margin-top: 15px;"></i>
                 </div>
-                <div *ngIf="cvSections[currentIndex].birth_date" class="input-group mb-3 mt-3 mx-2 w-50">
-                  <input type="text" class="form-control" [(ngModel)]="cvSections[currentIndex].pers_info.birth_date"  placeholder="Lieu de naissance">
-                  <i (click)="cvSections[currentIndex].birth_date=!cvSections[currentIndex].birth_date" class="pi pi-times"
-                    style="font-size: 20px; margin-left: 10px;color: #757575;margin-top: 15px;"></i>
+                <div *ngIf="birth_date" class="input-group mb-3 mt-3 mx-2 w-50">
+                  <p-calendar [(ngModel)]="cv.pers_info.birth_date"
+                    placeholder="date de naissance" [showIcon]="true"></p-calendar>
+                  <i (click)="birth_date=!birth_date"
+                    class="pi pi-times" style="font-size: 20px; margin-left: 10px;color: #757575;margin-top: 15px;"></i>
                 </div>
 
               </div>
 
               <div class="d-flex">
-                <div *ngIf="!cvSections[currentIndex].birth_place" (click)="cvSections[currentIndex].birth_place=!cvSections[currentIndex].birth_place" class="input-group mb-3 mt-3 mx-2 w-20">
-                  <p-chip label="Lieu de naissance" icon="pi pi-plus"></p-chip>
-                </div>
-                <div *ngIf="!cvSections[currentIndex].birth_date" (click)="cvSections[currentIndex].birth_date=!cvSections[currentIndex].birth_date" class="input-group mb-3 mt-3 mx-2 w-20">
+                <div *ngIf="!birth_date"
+                  (click)="birth_date=!birth_date"
+                  class="input-group mb-3 mt-3 mx-2 w-20">
                   <p-chip label="Date de naissance" icon="pi pi-plus"></p-chip>
+                </div>
+                <div *ngIf="!birth_place"
+                  (click)="birth_place=!birth_place"
+                  class="input-group mb-3 mt-3 mx-2 w-20">
+                  <p-chip label="Lieu de naissance" icon="pi pi-plus"></p-chip>
                 </div>
 
                 <div class="input-group mb-3 mt-3 mx-2 w-20">
@@ -97,7 +131,7 @@
             <span style="font-weight: bold; margin-left: 10px;" class="list-title">Formation</span>
             <!-- replace this with your text -->
             <div class="experience" *ngIf="show_formation">
-              <div *ngFor="let formation of cvSections[currentIndex].formations">
+              <div *ngFor="let formation of cv.formations">
                 <div class="d-flex">
                   <div class="input-group mb-3 mt-3 mx-2 w-100">
                     <input type="text" class="form-control" [(ngModel)]="formation.name" placeholder="Formation">
@@ -114,23 +148,25 @@
 
                 <div class="d-flex">
                   <div class="input-group mb-3 mt-3 mx-2 w-50">
-                    <input type="text" class="form-control" [(ngModel)]="formation.start_date" placeholder="date de debut">
+                    <p-calendar [(ngModel)]="formation.start_date" [showIcon]="true"
+                      placeholder="date de debut"></p-calendar>
                   </div>
                   <div class="input-group mb-3 mt-3 mx-2 w-50">
-                    <input type="text" class="form-control" [(ngModel)]="formation.end_date" placeholder="date de fin">
+                    <p-calendar [(ngModel)]="formation.end_date" [showIcon]="true"
+                      placeholder="date de fin"></p-calendar>
                   </div>
                 </div>
 
 
                 <div class="d-flex">
                   <div class="input-group mb-3 mt-3 mx-2 w-100">
-                    <textarea placeholder="descritpion" [(ngModel)]="formation.desc" class="w-100" rows="6" cols="30" pInputTextarea
-                      [autoResize]="true"></textarea>
+                    <textarea placeholder="descritpion" [(ngModel)]="formation.description" class="w-100" rows="6" cols="30"
+                      pInputTextarea [autoResize]="true"></textarea>
                   </div>
                 </div>
                 <div (click)="confirmFormation()" class="d-flex">
                   <div class="input-group mb-3 mt-3 mx-2 w-40">
-                    <p-button label="Submit" icon="pi pi-check"></p-button>
+                    <!-- <p-button label="Submit" icon="pi pi-check"></p-button> -->
                   </div>
                 </div>
 
@@ -139,7 +175,7 @@
                 <p-chip label="ajouter formation" icon="pi pi-plus"></p-chip>
               </div>
             </div>
-           
+
           </div>
 
         </div>
@@ -156,7 +192,7 @@
             <span style="font-weight: bold; margin-left: 10px;" class="list-title">Experience</span>
             <!-- replace this with your text -->
             <div class="experience" *ngIf="show_experience">
-              <div *ngFor="let experience of cvSections[currentIndex].experiences">
+              <div *ngFor="let experience of cv.experiences">
                 <div class="d-flex">
                   <div class="input-group mb-3 mt-3 mx-2 w-100">
                     <input type="text" class="form-control" [(ngModel)]="experience.name" placeholder="Potse">
@@ -173,32 +209,35 @@
 
                 <div class="d-flex">
                   <div class="input-group mb-3 mt-3 mx-2 w-50">
-                    <input type="text" class="form-control" [(ngModel)]="experience.start_date" placeholder="date de debut">
+
+                    <p-calendar [(ngModel)]="experience.start_date" [showIcon]="true"
+                      placeholder="date de debut"></p-calendar>
                   </div>
                   <div class="input-group mb-3 mt-3 mx-2 w-50">
-                    <input type="text" class="form-control" [(ngModel)]="experience.end_date" placeholder="date de fin">
+                    <p-calendar [(ngModel)]="experience.end_date" [showIcon]="true"
+                      placeholder="date de fin"></p-calendar>
                   </div>
                 </div>
 
 
                 <div class="d-flex">
                   <div class="input-group mb-3 mt-3 mx-2 w-100">
-                    <textarea placeholder="descritpion" [(ngModel)]="experience.desc" class="w-100" rows="6" cols="30" pInputTextarea
-                      [autoResize]="true"></textarea>
+                    <textarea placeholder="descritpion" [(ngModel)]="experience.description" class="w-100" rows="6" cols="30"
+                      pInputTextarea [autoResize]="true"></textarea>
                   </div>
                 </div>
                 <div (click)="confirmExperience()" class="d-flex">
                   <div class="input-group mb-3 mt-3 mx-2 w-40">
-                    <p-button label="Submit" icon="pi pi-check"></p-button>
+                    <!-- <p-button label="Submit" icon="pi pi-check"></p-button> -->
                   </div>
                 </div>
 
               </div>
               <div (click)="addExperience()" class="input-group mb-3 mt-3 mx-2 w-20">
-                <p-chip label="ajouter formation" icon="pi pi-plus"></p-chip>
+                <p-chip label="ajouter experience" icon="pi pi-plus"></p-chip>
               </div>
             </div>
-           
+
           </div>
 
         </div>
@@ -209,39 +248,38 @@
       <div class="d-flex justify-content-center offset-1  col-10">
         <div class="w-100">
           <div class="list-wrapper">
-            <i (click)="hide_comp()"
-              [class]="  show_comp ? 'pi pi-arrow-circle-up': 'pi pi-arrow-circle-down'"
+            <i (click)="hide_comp()" [class]="  show_comp ? 'pi pi-arrow-circle-up': 'pi pi-arrow-circle-down'"
               style="font-size: 30px;float: right; margin-left: 10px;color: #757575;"></i>
             <!-- replace this with the icon you want to use -->
             <span style="font-weight: bold; margin-left: 10px;" class="list-title">Competence</span>
             <!-- replace this with your text -->
             <div class="experience" *ngIf="show_comp">
-              <div *ngFor="let comp of cvSections[currentIndex].comps">
+              <div *ngFor="let comp of cv.comps">
                 <div class="d-flex">
                   <div class="input-group mb-3 mt-3 mx-2 w-100">
-                    <input type="text" class="form-control" [(ngModel)]="comp.name" placeholder="competance">
+                    <input type="text" class="form-control" [(ngModel)]="comp.name" placeholder="competence">
                   </div>
                 </div>
                 <div class="d-flex">
                   <div class="input-group mb-3 mt-3 mx-2 w-50">
-                 
 
-                 <p-slider [(ngModel)]="comp.value" [step]="20" [style]="{ width: '400px' }"></p-slider>  
-                 <div>{{getTextValue(comp.value)}}</div>
-                   
-                
+
+                    <p-slider [(ngModel)]="comp.value" [step]="20" [style]="{ width: '400px' }"></p-slider>
+                    <div>{{getTextValue(comp.value)}}</div>
+
+
                   </div>
-              
+
                 </div>
 
-               
+
 
               </div>
               <div (click)="addComp()" class="input-group mb-3 mt-3 mx-2 w-20">
-                <p-chip label="ajouter formation" icon="pi pi-plus"></p-chip>
+                <p-chip label="ajouter compétence" icon="pi pi-plus"></p-chip>
               </div>
             </div>
-           
+
           </div>
 
         </div>
@@ -250,26 +288,25 @@
       <div class="d-flex justify-content-center offset-1  col-10">
         <div class="w-100">
           <div class="list-wrapper">
-            <i (click)="hide_CI()"
-              [class]="  show_CI ? 'pi pi-arrow-circle-up': 'pi pi-arrow-circle-down'"
+            <i (click)="hide_CI()" [class]="  show_CI ? 'pi pi-arrow-circle-up': 'pi pi-arrow-circle-down'"
               style="font-size: 30px;float: right; margin-left: 10px;color: #757575;"></i>
             <!-- replace this with the icon you want to use -->
             <span style="font-weight: bold; margin-left: 10px;" class="list-title">Centre d'interet</span>
             <!-- replace this with your text -->
             <div class="experience" *ngIf="show_CI">
-              <div *ngFor="let Ci of cvSections[currentIndex].CIs">
+              <div *ngFor="let Ci of cv.interests">
                 <div class="d-flex">
                   <div class="input-group mb-3 mt-3 mx-2 w-100">
-                    <input type="text" class="form-control" [(ngModel)]="Ci.name" placeholder="competance">
+                    <input type="text" class="form-control" [(ngModel)]="Ci.name" placeholder="competence">
                   </div>
                 </div>
-               
+
               </div>
               <div (click)="addCI()" class="input-group mb-3 mt-3 mx-2 w-20">
-                <p-chip label="ajouter formation" icon="pi pi-plus"></p-chip>
+                <p-chip label="ajouter CI" icon="pi pi-plus"></p-chip>
               </div>
             </div>
-           
+
           </div>
 
         </div>
@@ -280,14 +317,13 @@
       <div class="d-flex justify-content-center offset-1  col-10">
         <div class="w-100">
           <div class="list-wrapper">
-            <i (click)="hide_lang()"
-              [class]="  show_lang ? 'pi pi-arrow-circle-up': 'pi pi-arrow-circle-down'"
+            <i (click)="hide_lang()" [class]="  show_lang ? 'pi pi-arrow-circle-up': 'pi pi-arrow-circle-down'"
               style="font-size: 30px;float: right; margin-left: 10px;color: #757575;"></i>
             <!-- replace this with the icon you want to use -->
             <span style="font-weight: bold; margin-left: 10px;" class="list-title">Langues</span>
             <!-- replace this with your text -->
             <div class="experience" *ngIf="show_lang">
-              <div *ngFor="let lang of cvSections[currentIndex].langs">
+              <div *ngFor="let lang of cv.langs">
                 <div class="d-flex">
                   <div class="input-group mb-3 mt-3 mx-2 w-100">
                     <input type="text" class="form-control" [(ngModel)]="lang.name" placeholder="langue">
@@ -295,20 +331,20 @@
                 </div>
                 <div class="d-flex">
                   <div class="input-group mb-3 mt-3 mx-2 w-50">
-                    <p-slider [(ngModel)]="lang.value" [step]="20" [style]="{ width: '400px' }"></p-slider>  
+                    <p-slider [(ngModel)]="lang.value" [step]="20" [style]="{ width: '400px' }"></p-slider>
                     <div>{{getTextValue(lang.value)}}</div>
                   </div>
-              
+
                 </div>
 
-               
+
 
               </div>
               <div (click)="addLang()" class="input-group mb-3 mt-3 mx-2 w-20">
-                <p-chip label="ajouter formation" icon="pi pi-plus"></p-chip>
+                <p-chip label="ajouter langue" icon="pi pi-plus"></p-chip>
               </div>
             </div>
-           
+
           </div>
 
         </div>
@@ -318,103 +354,180 @@
 
     </div>
 
-    <div style="background-color: #F4F7F8;overflow-y:scroll;" id="right-element" (scroll)="onElementScroll($event)" class="col-md-6  px-0 right-column d-flex align-items-center justify-content-center" >
-      <div id="print-section"  >
-        <div *ngFor="let section of cvSections;let i=index" style="margin-bottom: 20px;">
-        <div *ngIf="i==0" class="right_section" [style.background-color]="color">
-          <div class="cv_sexpresscondary_title" style="padding: 10px;"> Informations personnelles </div>
-          <div class="d-flex">
-            <div class="input-group mb-3 mt-3 mx-2 w-20">
-             {{section.pers_info.name}}
+    <div style="background-color: #F4F7F8;overflow-y:scroll;" id="right-element" (scroll)="onElementScroll($event)"
+      class="col-md-6  px-0 right-column d-flex align-items-center justify-content-center">
+
+      <div id="print-section" >
+        <div  class="right_section" [style.background-color]="color">
+
+
+          <div class="row">
+            <div class="col-3">
+              <img *ngIf="cv.pers_info.image" [src]=" cv.pers_info.image? cv.pers_info.image :'https://www.w3schools.com/images/w3schools_green.jpg'"
+                style="height: 78%;width: 100%; background-size: cover;
+                background-position: center;-webkit-print-color-adjust: exact; ">
             </div>
-            <div class="input-group mb-3 mt-3 mx-2 w-20">
-              {{section.pers_info.last_name}}
-            </div>
-            <div *ngIf="pers_info.mail" class="input-group mb-3 mt-3 mx-2 w-20">
-              <i  class="pi pi-envelope"   style="font-size: 20px;color: #757575;"></i>                           
-              {{section.pers_info.mail}}
-            </div>
-            <div class="input-group mb-3 mt-3 mx-2 w-20">
-              {{section.pers_info.city}}
-            </div>
-            <div class="input-group mb-3 mt-3 mx-2 w-20">
-              {{section.pers_info.address}}
-            </div>
-            <div class="input-group mb-3 mt-3 mx-2 w-20">
-              {{section.pers_info.phone_number}}
+            <div class="col-9">
+
+              <div class="row">
+
+                <div class="col">
+                  <div *ngIf="cv.pers_info.username" class="input-group mb-3">
+                    <div class="icon-text-container">
+                      <i class="pi pi-user icon"></i>
+                      <span class="text" style="font-size: 25px;">{{cv.pers_info.username}}
+                        {{cv.pers_info.last_name}}</span>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+              <div class="row">
+
+                <div class="col">
+                  <div *ngIf="cv.pers_info.mail" class="input-group mb-3">
+
+                    <div class="icon-text-container">
+                      <i class="pi pi-envelope icon"></i>
+                      <span class="text">{{cv.pers_info.mail}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div *ngIf="cv.pers_info.address" class="input-group mb-3">
+
+                    <div class="icon-text-container">
+                      <i class="pi pi-home icon"></i>
+                      <span class="text">{{cv.pers_info.address}}</span>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="row" style="margin-top: -10px;">
+                <div class="col">
+                  <div *ngIf="cv.pers_info.phone_number" class="input-group mb-3">
+                    <div class="icon-text-container">
+                      <i class="pi pi-phone icon"></i>
+                      <span class="text">{{cv.pers_info.phone_number}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
+
         </div>
-        <div  class="row custom-row-height mx-0" >
+        <div class="row custom-row-height mx-0">
           <div class="col-8">
             <!-- content for the left column goes here (80% width) -->
-            <div class="cv_secondary_title"> Formations </div>
-            
-            <div *ngFor="let formation of section.formations">
+            <div class="cv_secondary_title" *ngIf="cv.formations[0].name" > Formations </div>
 
-              <div class="cv_secondary_title"> {{formation.name}}</div>
-              <div > {{formation.school}}</div>
-              <div > {{formation.city}}</div>
-              <div > {{formation.start_date}}</div>
-              <div > {{formation.end_date}}</div>
-              <div > {{formation.desc}}</div>
-             
+            <div *ngFor="let formation of cv.formations">
+              <div class="row">
+                <div class="col-12 cv_secondary_title" *ngIf="formation.name">-{{formation.name}}</div>
+                <div class="col-6" style="color: gray;" *ngIf="formation.school"> {{formation.school}},{{formation.city}}</div>
+                <div class="col-6" *ngIf="formation.start_date|| formation.end_date"> de
+                  {{helper.formatDateMonthYear(formation.start_date)}} a
+                  {{helper.formatDateMonthYear(formation.end_date)}}</div>
+                <div class="col-12"> {{formation.description}}</div>
+              </div>
+
+
+
             </div>
 
-            <div class="cv_secondary_title"> Experinces </div>
-            
-            <div *ngFor="let experience of section.experiences">
+            <div class="cv_secondary_title"  *ngIf="cv.experiences[0].name"> Experinces </div>
 
-              <div class="cv_secondary_title"> {{experience.name}}</div>
-              <div > {{experience.hire}}</div>
-              <div > {{experience.city}}</div>
-              <div > {{experience.start_date}}</div>
-              <div > {{experience.end_date}}</div>
-              <div > {{experience.desc}}</div>
-             
+            <div *ngFor="let experience of cv.experiences">
+              <div class="row">
+              <div class="cv_secondary_title" *ngIf="experience.name"> -{{experience.name}}</div>
+              <div class="col-6" style="color: gray;"*ngIf="experience.hire"> {{experience.hire}},{{experience.city}}</div>
+              <div class="col-6" *ngIf="experience.start_date|| experience.end_date"> de
+                {{helper.formatDateMonthYear(experience.start_date)}} a
+                {{helper.formatDateMonthYear(experience.end_date)}}</div>
+              <div class="col-12"> {{experience.description}}</div>
+              </div>
             </div>
 
           </div>
           <div class="col-4" style="border-left: 1px rgb(236, 236, 236) solid;">
-            <div class="cv_secondary_title" *ngIf="section.comps[0].name"> Competances </div>
-            <div *ngFor="let comp of section.comps">
 
-              <div  > {{comp.name}}</div>
-              <p-progressBar *ngIf="comp.value>0" [value]="comp.value" [style]="{ height: '6px' }" [showValue]="false"></p-progressBar>
-           
-             
+
+            <div class="cv_secondary_title"
+              *ngIf="cv.pers_info.birth_place || cv.pers_info.birth_date">
+              Informations personnelles </div>
+            <div style="color: grey;" *ngIf="cv.pers_info.birth_date">
+              date de naissance
+            </div>
+            <div>
+              {{helper.formatDate(cv.pers_info.birth_date)}}
             </div>
 
-            <div class="cv_secondary_title" *ngIf="section.langs[0].name"> Langues </div>
-            <div *ngFor="let lang of section.langs">
+            <div style="color: grey;" *ngIf="cv.pers_info.birth_place">
+              place de naissance
+            </div>
+            <div>
+              {{ cv.pers_info.birth_place }}
+            </div>
+
+
+            <div class="cv_secondary_title" *ngIf="cv.comps[0].name"> Competences </div>
+            <div *ngFor="let comp of cv.comps">
+
+              <div> {{comp.name}}</div>
+              <p-progressBar *ngIf="comp.value>0" [value]="comp.value" [style]="{ height: '6px' }"
+                [showValue]="false"></p-progressBar>
+
+
+            </div>
+
+            <div class="cv_secondary_title" *ngIf="cv.langs[0].name"> Langues </div>
+            <div *ngFor="let lang of cv.langs">
 
               <div> {{lang.name}}</div>
-              <p-progressBar *ngIf="lang.value>0" [value]="lang.value" [style]="{ height: '6px' }" [showValue]="false"></p-progressBar>
-           
-             
+              <p-progressBar *ngIf="lang.value>0" [value]="lang.value" [style]="{ height: '6px' }"
+                [showValue]="false"></p-progressBar>
+
+
             </div>
 
-            <div class="cv_secondary_title" *ngIf="section.CIs[0].name"> centre d'interers </div>
-            <div *ngFor="let Ci of section.CIs">
+            <div class="cv_secondary_title" *ngIf="cv.interests[0].name"> centre d'interers </div>
+            <div *ngFor="let Ci of cv.interests">
 
-              <div>- {{Ci.name}}</div>
-           
-           
-             
+              <div *ngIf="Ci.name">- {{Ci.name}}</div>
+
             </div>
 
           </div>
         </div>
       </div>
-
-      <div style="position: absolute;bottom: 20px; right: 30%;" class="card flex justify-content-center">
-        <p-colorPicker [(ngModel)]="color"></p-colorPicker>
     </div>
+   
 
-  </div>
     </div>
   </div>
+
+
+
+
+<div class="card flex justify-content-center">
+
+  <p-dialog header="Message" [(visible)]="visible" [style]="{width: '50vw'}">
+    <p >
+       {{first_time?'Veuillez noter que vous avez droit à un seul téléchargement par jour.':userService.user && !subbed?"Je vous prie de m'excuser, mais je dois vous informer que vous avez dépassé la limite de téléchargement autorisée pour aujourd'hui,Veuillez vous abonner" : userService.user && subbed ?'vous etes abonnés': !userService.user?'Je vous prie de bien vouloir vous inscrire afin que je puisse télécharger un CV':''}}
+    </p>
+    <button *ngIf="!userService.user" (click)="goTo()"  class="button" >S'inscire</button>
+
+    <button (click)="sendPDF()" *ngIf="(userService.user && first_time) || (userService.user && subbed) "  class="button" [useExistingCss]="true" printSectionId="print-section" ngxPrint>download cv</button>
+    <button *ngIf="userService.user && !subbed" (click)="subscribe()"  class="button" style="margin-left: 10px;" >S'abonner</button>
+  </p-dialog>
 </div>
-<button  [useExistingCss]="true"  printSectionId="print-section" ngxPrint>print</button>  
-<button (click)="show()" >show</button>  
+
+<div style="position: absolute;bottom: 20px; right: 30%;" class="card flex justify-content-center">
+  <p-colorPicker [(ngModel)]="color"></p-colorPicker>
+</div>

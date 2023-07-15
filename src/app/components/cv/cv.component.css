@@ -1,0 +1,20 @@
+.custom-div {
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dotted;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+
+  .custom-div1 {
+    height: 350px;
+  
+
+    border: 3px solid rgb(124, 125, 201);
+
+    cursor: pointer;
+    border-radius: 10px;
+  }

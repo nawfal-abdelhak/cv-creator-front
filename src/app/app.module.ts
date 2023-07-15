@@ -14,10 +14,22 @@ import { ProgressBarModule } from 'primeng/progressbar';
 // For dynamic progressbar demo
 import { ToastModule } from 'primeng/toast';
 import { SliderModule } from 'primeng/slider';
+import { CalendarModule } from 'primeng/calendar';
+
+import { SigninComponent } from './components/signin/signin.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { DialogModule } from 'primeng/dialog';
+import {ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
-    CreateCvComponent
+    CreateCvComponent,
+    SigninComponent,
+    SignupComponent,
+
+
   ],
   imports: [
     FormsModule,
@@ -27,11 +39,15 @@ import { SliderModule } from 'primeng/slider';
     ButtonModule,
     ChipModule,
     InputTextareaModule,
+    CalendarModule,
     ColorPickerModule,
     ProgressBarModule,
     SliderModule,
     SliderModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    DialogModule
   
   ],
   providers: [],

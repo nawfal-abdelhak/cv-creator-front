@@ -1,0 +1,21 @@
+#left-column {
+    height:100vh;/* Set the height to 100% of the viewport height */
+    position: fixed; /* Fix the position */
+    left: 0; /* Position it on the left */
+ /* Position it at the top */
+    z-index: 999; /* Optionally, set a z-index to control stacking order */
+    background-color: #F55776;
+  }
+
+.item{
+ text-align: center;
+ font-size: 21px;
+ padding: 13px;   
+ cursor: pointer;
+ color: white;
+}
+
+.active{
+    background-color: #b6b6b638;
+    border-radius: 11px;
+}

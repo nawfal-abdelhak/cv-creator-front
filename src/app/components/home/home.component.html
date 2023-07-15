@@ -1,0 +1,38 @@
+<div  class="row mt-3">
+    <div (click)="showDialog()"  class="col-2">
+        <div class="custom-div">
+            <p>Créer une nouveau cv +</p>
+        </div>
+    </div>
+
+    <div  *ngFor="let cv of helper.cvs"  class="col-2 offset-1">
+        <div (click)="goTo(cv)" class="custom-div1">
+           <img style="height: 100%;width: 100%;" src="assets/cv.png">
+           <div>{{cv.title}}</div>
+        </div>
+    </div>
+
+   
+</div>
+
+
+
+    <p-dialog header=" Choisissez le modèle" [(visible)]="visible" [style]="{width: '50vw'}">
+
+<div class="row">
+      <div  class="col-4 offset-1">
+        <div routerLink="create-cv" class="custom-div1">
+           <img style="height: 100%;width: 100%;" src="assets/cv.png">
+           <div>Model 1</div>
+        </div>
+    </div>
+
+    <div  class="col-4 offset-1">
+        <div class="custom-div1">
+           <img style="height: 100%;width: 100%;" src="assets/cv1.png">
+        </div>
+        <div>Model 2</div>
+    </div>
+</div> 
+    </p-dialog>
+ 

@@ -1,0 +1,122 @@
+<div style="margin-top: 20px;">
+
+
+<p-table 
+    #dt1
+    [value]="customers"
+    dataKey="id"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [loading]="loading"
+    [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="['name', 'LAS', 'representative.name', 'status']"
+>
+   
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="min-width:15rem">
+                <div class="flex align-items-center">
+                    Name
+                    <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width:15rem">
+                <div class="flex align-items-center">
+                   Last name
+                    <p-columnFilter type="text" field="country.name" display="menu"></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width:15rem">
+                <div class="flex align-items-center">
+                    Image
+                    <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                        <ng-template pTemplate="header">
+                            <div class="px-3 pt-3 pb-0">
+                                <span class="font-bold">Agent Picker</span>
+                            </div>
+                        </ng-template>
+                     
+                    </p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width:10rem">
+                <div class="flex align-items-center">
+                    Date
+                    <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
+                </div>
+            </th>
+            
+            <th style="min-width:10rem">
+                <div class="flex align-items-center">
+                    Status
+                  
+                </div>
+            </th>
+            
+            <th style="width: 3rem">
+                <div class="flex align-items-center">
+                    Subbed
+                    <p-columnFilter type="boolean" field="verified" display="menu"></p-columnFilter>
+                </div>
+            </th>
+
+            <th style="min-width:10rem">
+                <div class="flex align-items-center">
+                    
+                action
+                </div>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-customer>
+        <tr>
+            <td>
+                {{ customer.username }}
+            </td>
+            <td>
+                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.username" style="width: 20px" />
+                <span class="ml-1 vertical-align-middle">{{ customer.last_name }}</span>
+            </td>
+            <td>
+                <img [alt]="customer.name" *ngIf="customer.image!='http://192.168.56.1:8080/images/http://192.168.56.1:8080/images/null'" src="{{ customer.image }}" width="32" style="vertical-align: middle" />
+                <span class="ml-1 vertical-align-middle">{{ customer.name }}</span>
+            </td>
+            <td>
+                {{ helper.formatDate(customer.birth_date ) }}
+            </td>
+          
+            <td>
+                not actif
+            </td>
+            
+            <td class="text-center">
+                {{customer.subbed?'subbed':'not subbed'}}
+                <!-- <i class="pi" [ngClass]="{ 'text-green-500 pi-check-circle': customer.verified, 'text-red-500 pi-times-circle': !customer.verified }"></i> -->
+            </td>
+            <td style="cursor: pointer;">
+                <i (click)="showDialog(customer.id) " class="pi pi-trash "></i>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="7">No customers found.</td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<div style="margin-top: 20px;">
+    <div  class="card">
+    <p-chart height="400px" type="bar" *ngIf="basicData.labels.length>1" [data]="basicData" ></p-chart>
+</div>
+</div>
+</div>
+
+
+
+<p-dialog header="confirmation de suppression" [(visible)]="visible" [style]="{width: '50vw'}">
+    <button  (click)="visible=false"  class="button" >Cancel</button>
+    <button style="margin-left: 30px;" (click)="deleteUser()"    class="button" >Confirmer</button>
+</p-dialog>
